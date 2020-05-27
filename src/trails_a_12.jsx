@@ -5,7 +5,7 @@ function tokens() {
   const xhighest = 710;
   const ylowest = 50;
   const yhighest = 510;
-  const d2 = d * 2;
+  const d2 = d + 10;
 
   let tokens = [];
   let xrange = [];
@@ -44,7 +44,7 @@ function tokens() {
       text: "" + (k + 1),
     });
   }
-  console.log(tokens);
+  //console.log(tokens);
   return tokens;
 }
 
