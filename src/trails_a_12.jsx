@@ -1,66 +1,59 @@
- export default {
- 	"width": 535,
- 	"height": 465,
- 	"diameter": 44,
- 	"tokens": [{
- 			"x": 332,
- 			"y": 263,
- 			"text": "1"
- 		},
- 		{
- 			"x": 254,
- 			"y": 341,
- 			"text": "2"
- 		},
- 		{
- 			"x": 384,
- 			"y": 340,
- 			"text": "3"
- 		},
- 		{
- 			"x": 394,
- 			"y": 36,
- 			"text": "4"
- 		},
- 		{
- 			"x": 245,
- 			"y": 111,
- 			"text": "5"
- 		},
- 		{
- 			"x": 315,
- 			"y": 178,
- 			"text": "6"
- 		},
- 		{
- 			"x": 219,
- 			"y": 219,
- 			"text": "7"
- 		},
- 		{
- 			"x": 101,
- 			"y": 333,
- 			"text": "8"
- 		},
- 		{
- 			"x": 125,
- 			"y": 393,
- 			"text": "9"
- 		},
- 		{
- 			"x": 186,
- 			"y": 332,
- 			"text": "10"
- 		},
- 		{
- 			"x": 244,
- 			"y": 410,
- 			"text": "11"
- 		},
- 		{
- 			"x": 38,
- 			"y": 418,
- 			"text": "12"
- 		}
- 	]
- };
+export default function trails() {
+  const xlowest = 38;
+  const xhighest = 394;
+  const ylowest = 36;
+  const yhighest = 418;
+
+  let tokens = [];
+  let xrange = [];
+  let yrange = [];
+
+  let i = 0;
+  while (i < 12) {
+    const x = xlowest + Math.random() * (xhighest - xlowest);
+
+    const xcheck = xrange.every((xr) => {
+      if (x < xr && x + 44 - xr < 0) return true;
+      if (x > xr + 44) return true;
+
+      return false;
+    });
+
+    if (xcheck) {
+      xrange.push(x);
+      i++;
+    }
+  }
+
+  let j = 0;
+  while (j < 12) {
+    const y = ylowest + Math.random() * (yhighest - ylowest);
+
+    const ycheck = yrange.every((yr) => {
+      if (y < yr && y + 44 - yr < 0) return true;
+      if (y > yr + 44) return true;
+
+      return false;
+    });
+
+    if (ycheck) {
+      yrange.push(y);
+      j++;
+    }
+  }
+
+  for (let k = 0; k < 12; k++) {
+    tokens.push({
+      x: xrange[k],
+      y: yrange[k],
+      text: k + 1,
+    });
+  }
+
+  return {
+    width: 535,
+    height: 465,
+    diameter: 44,
+    tokens: tokens,
+  };
+}
