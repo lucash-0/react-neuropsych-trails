@@ -52,8 +52,13 @@ export default class Trails extends React.PureComponent {
   }
 
   state = {
+    trails: null,
     error: "",
   };
+
+  componentDidMount() {
+    this.setState({ trail: TrailsA12() });
+  }
 
   handleSuccess = (e, index) => {
     let date = new Date();
@@ -128,7 +133,7 @@ export default class Trails extends React.PureComponent {
       case TrailTypes.BSample:
         return TrailsBSample;
       case TrailTypes.A12:
-        return TrailsA12;
+        return this.state.trail;
       case TrailTypes.B12:
         return TrailsB12;
       default:
@@ -271,26 +276,30 @@ export default class Trails extends React.PureComponent {
 
   render() {
     let trail = this.trail();
-    return (
-      <div style={{ position: "relative", height: "100%" }}>
-        <ContainerDimensions>{this.renderSVG}</ContainerDimensions>
-        <PopUp
-          fontSize="3em"
-          onlyIf={this.state.error !== ""}
-          theme={Theme.error}
-          width={trail.width}
-        >
-          {this.props.errorText}
-        </PopUp>
-        <PopUp
-          onlyIf={this.props.progress >= trail.tokens.length}
-          theme={Theme.success}
-          retry={this.props.retry}
-          width={trail.width}
-        >
-          {this.renderCompletionContent()}
-        </PopUp>
-      </div>
-    );
+    if (!trail) {
+      return null;
+    } else {
+      return (
+        <div style={{ position: "relative", height: "100%" }}>
+          <ContainerDimensions>{this.renderSVG}</ContainerDimensions>
+          <PopUp
+            fontSize="3em"
+            onlyIf={this.state.error !== ""}
+            theme={Theme.error}
+            width={trail.width}
+          >
+            {this.props.errorText}
+          </PopUp>
+          <PopUp
+            onlyIf={this.props.progress >= trail.tokens.length}
+            theme={Theme.success}
+            retry={this.props.retry}
+            width={trail.width}
+          >
+            {this.renderCompletionContent()}
+          </PopUp>
+        </div>
+      );
+    }
   }
 }

@@ -48,9 +48,11 @@ function tokens() {
   return tokens;
 }
 
-export default {
-  width: 758,
-  height: 558,
-  diameter: d,
-  tokens: tokens(),
-};
+export default function obj() {
+  return {
+    width: 758,
+    height: 558,
+    diameter: d,
+    tokens: tokens(),
+  };
+}
